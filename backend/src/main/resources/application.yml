@@ -1,6 +1,10 @@
 spring:
   application:
     name: backend
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/ats}
     username: ${SPRING_DATASOURCE_USERNAME:ats}
@@ -29,6 +33,14 @@ management:
 app:
   cors:
     allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://127.0.0.1:5173}
+  storage:
+    local:
+      root-directory: ${RESUME_STORAGE_ROOT:./data/resumes}
+  resume:
+    max-size-bytes: ${RESUME_MAX_BYTES:5242880}
+    allowed-content-types:
+      - application/pdf
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
   jwt:
     # HS256: at least 32 bytes. Override in production via JWT_SECRET.
     secret: ${JWT_SECRET:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef}

@@ -10,6 +10,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
+import java.time.Instant;
+
 @Entity
 @Table(
 		name = "applications",
@@ -31,6 +33,28 @@ public class JobApplication extends BaseEntity {
 
 	@Column(columnDefinition = "TEXT")
 	private String notes;
+
+	@Column(name = "resume_storage_key", length = 512)
+	private String resumeStorageKey;
+
+	@Column(name = "resume_original_filename", length = 255)
+	private String resumeOriginalFilename;
+
+	@Column(name = "resume_mime_type", length = 128)
+	private String resumeMimeType;
+
+	@Column(name = "resume_uploaded_at")
+	private Instant resumeUploadedAt;
+
+	@Column(name = "resume_parsed_text", columnDefinition = "TEXT")
+	private String resumeParsedText;
+
+	@Column(name = "match_score")
+	private Integer matchScore;
+
+	/** JSON array of explanation strings; see Flyway V3. */
+	@Column(name = "match_reasons", columnDefinition = "TEXT")
+	private String matchReasonsJson;
 
 	protected JobApplication() {
 	}
@@ -63,5 +87,60 @@ public class JobApplication extends BaseEntity {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public String getResumeStorageKey() {
+		return resumeStorageKey;
+	}
+
+	public String getResumeOriginalFilename() {
+		return resumeOriginalFilename;
+	}
+
+	public String getResumeMimeType() {
+		return resumeMimeType;
+	}
+
+	public Instant getResumeUploadedAt() {
+		return resumeUploadedAt;
+	}
+
+	public String getResumeParsedText() {
+		return resumeParsedText;
+	}
+
+	public Integer getMatchScore() {
+		return matchScore;
+	}
+
+	public String getMatchReasonsJson() {
+		return matchReasonsJson;
+	}
+
+	public void clearResumeData() {
+		this.resumeStorageKey = null;
+		this.resumeOriginalFilename = null;
+		this.resumeMimeType = null;
+		this.resumeUploadedAt = null;
+		this.resumeParsedText = null;
+		this.matchScore = null;
+		this.matchReasonsJson = null;
+	}
+
+	public void setResumeFile(
+			String storageKey,
+			String originalFilename,
+			String mimeType,
+			Instant uploadedAt,
+			String parsedText,
+			Integer matchScore,
+			String matchReasonsJson) {
+		this.resumeStorageKey = storageKey;
+		this.resumeOriginalFilename = originalFilename;
+		this.resumeMimeType = mimeType;
+		this.resumeUploadedAt = uploadedAt;
+		this.resumeParsedText = parsedText;
+		this.matchScore = matchScore;
+		this.matchReasonsJson = matchReasonsJson;
 	}
 }

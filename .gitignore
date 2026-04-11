@@ -14,6 +14,9 @@ backend/.mvn/wrapper/maven-wrapper.jar
 frontend/node_modules/
 frontend/dist/
 
+# Local resume storage (Phase 3)
+data/
+
 # IDE
 .idea/
 *.iml

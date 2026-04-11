@@ -1,4 +1,5 @@
 import { fetchJson } from './client'
+import { normalizeSpringPage } from '../lib/springPage'
 import type { JobPosting, MyApplication, Page, RecruiterApplication } from '../types/jobs'
 
 export async function getPublicJobs(params: {
@@ -13,7 +14,8 @@ export async function getPublicJobs(params: {
   if (params.page != null) sp.set('page', String(params.page))
   if (params.size != null) sp.set('size', String(params.size))
   const q = sp.toString()
-  return fetchJson<Page<JobPosting>>(`/api/jobs${q ? `?${q}` : ''}`)
+  const raw = await fetchJson<unknown>(`/api/jobs${q ? `?${q}` : ''}`)
+  return normalizeSpringPage<JobPosting>(raw)
 }
 
 export function getPublicJob(id: number): Promise<JobPosting> {
@@ -24,18 +26,24 @@ export function applyToJob(jobId: number, token: string): Promise<MyApplication>
   return fetchJson<MyApplication>(`/api/jobs/${jobId}/applications`, { method: 'POST', token })
 }
 
-export function getMyApplications(
+export async function getMyApplications(
   token: string,
   page = 0,
   size = 20,
 ): Promise<Page<MyApplication>> {
-  return fetchJson<Page<MyApplication>>(`/api/me/applications?page=${page}&size=${size}`, {
+  const raw = await fetchJson<unknown>(`/api/me/applications?page=${page}&size=${size}`, {
     token,
   })
+  return normalizeSpringPage<MyApplication>(raw)
 }
 
-export function getRecruiterJobs(token: string, page = 0, size = 20): Promise<Page<JobPosting>> {
-  return fetchJson<Page<JobPosting>>(`/api/recruiter/jobs?page=${page}&size=${size}`, { token })
+export async function getRecruiterJobs(
+  token: string,
+  page = 0,
+  size = 20,
+): Promise<Page<JobPosting>> {
+  const raw = await fetchJson<unknown>(`/api/recruiter/jobs?page=${page}&size=${size}`, { token })
+  return normalizeSpringPage<JobPosting>(raw)
 }
 
 export function getRecruiterJob(token: string, id: number): Promise<JobPosting> {
@@ -62,16 +70,31 @@ export function deleteRecruiterJob(token: string, id: number): Promise<void> {
   return fetchJson<void>(`/api/recruiter/jobs/${id}`, { method: 'DELETE', token })
 }
 
-export function getJobApplications(
+export async function getJobApplications(
   token: string,
   jobId: number,
   page = 0,
   size = 20,
 ): Promise<Page<RecruiterApplication>> {
-  return fetchJson<Page<RecruiterApplication>>(
+  const raw = await fetchJson<unknown>(
     `/api/recruiter/jobs/${jobId}/applications?page=${page}&size=${size}`,
     { token },
   )
+  return normalizeSpringPage<RecruiterApplication>(raw)
+}
+
+export function uploadApplicationResume(
+  token: string,
+  applicationId: number,
+  file: File,
+): Promise<MyApplication> {
+  const body = new FormData()
+  body.append('file', file)
+  return fetchJson<MyApplication>(`/api/me/applications/${applicationId}/resume`, {
+    method: 'POST',
+    token,
+    body,
+  })
 }
 
 export function patchApplication(

@@ -8,7 +8,7 @@ export function HomePage() {
     <section>
       <h1>AI-assisted interview & ATS</h1>
       <p>
-        <strong>Phase 2</strong> adds job postings, applications, recruiter tooling, and public job search. API docs:{' '}
+        <strong>Phase 2–3</strong> add jobs, applications, resume upload, and match scoring. API docs:{' '}
         <a href="http://localhost:8080/swagger-ui.html" target="_blank" rel="noreferrer">
           Swagger UI
         </a>{' '}

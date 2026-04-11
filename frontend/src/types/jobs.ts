@@ -41,6 +41,10 @@ export type MyApplication = {
   companyName: string
   status: ApplicationStatus
   createdAt: string
+  resumeUploaded: boolean
+  matchScore: number | null
+  matchReasons: string[]
+  resumeUploadedAt: string | null
 }
 
 export type RecruiterApplication = {
@@ -52,4 +56,9 @@ export type RecruiterApplication = {
   status: ApplicationStatus
   notes: string | null
   createdAt: string
+  resumeUploaded: boolean
+  resumeFileName: string | null
+  matchScore: number | null
+  matchReasons: string[]
+  resumeUploadedAt: string | null
 }

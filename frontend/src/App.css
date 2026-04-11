@@ -265,7 +265,59 @@
 .app-main {
   flex: 1;
   padding: 1.25rem;
-  max-width: 48rem;
+  max-width: 56rem;
+}
+
+.app-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.app-row-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.file-upload {
+  position: relative;
+  display: inline-block;
+  font-size: 0.8125rem;
+}
+
+.file-upload input {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.file-upload span {
+  color: #2563eb;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.reasons {
+  margin: 0.35rem 0 0 1rem;
+  padding: 0;
+  list-style: disc;
+}
+
+.small {
+  font-size: 0.8125rem;
+}
+
+p.error {
+  color: #b91c1c;
+  margin-top: 1rem;
 }
 
 .app-main pre {

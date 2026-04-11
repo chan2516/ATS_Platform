@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-04-11
 
-**Current phase:** Phase 3 — Resume upload & ATS scoring (next)
+**Current phase:** Phase 4 — Analytics & candidate experience polish (next)
 
 ---
 
@@ -134,11 +134,36 @@
 
 - [x] Recruiter creates job → candidate applies → recruiter changes status (see README **Phase 2 — happy path**)
 
-**Phase 2 status:** Complete. **Next:** Phase 3 (resume upload & scoring).
+**Phase 2 status:** Complete.
 
 ---
 
-## Phase 3+ (checklist TBD)
+## Phase 3 — Resume upload & ATS scoring
+
+**Goal:** Safe file storage, text extraction, deterministic match score + explanations for recruiters.  
+**Reference:** `DEVELOPMENT_PLAN.md` § Phase 3. Narrative: `PROJECT_JOURNEY.md`.
+
+### Delivered
+
+- [x] Flyway `V3__resume_and_match_score.sql` — resume columns + `match_score` / `match_reasons` on `applications`
+- [x] Local filesystem storage (`app.storage.local.root-directory` / `RESUME_STORAGE_ROOT`) with a clear swap path for S3-style storage later
+- [x] Apache Tika text extraction (PDF/DOCX); size and MIME validation
+- [x] `AtsMatchScoringService` — v1 rule-based score (0–100) + bullet reasons
+- [x] `POST /api/me/applications/{id}/resume` (multipart); candidate-only, own application
+- [x] DTOs: `MyApplicationResponse` / `RecruiterApplicationResponse` extended with score + resume fields
+- [x] Spring Data **PagedModel** JSON (`WebConfig` + `VIA_DTO`); frontend `normalizeSpringPage` for both shapes
+- [x] Integration test `Phase3ResumeIntegrationTest` (PDFBox **2.x** test scope aligned with Tika)
+- [x] UI: upload on **My applications**; score + resume columns for recruiters
+
+### Phase 3 — Exit criteria (from plan)
+
+- [x] Upload → score visible on application row; job text drives scoring (re-upload re-scores with current job description)
+
+**Phase 3 status:** Complete for v1 (local storage + deterministic scorer). Optional later: embeddings, virus scan, Redis-backed re-scoring cache.
+
+---
+
+## Phase 4+ (see plan)
 
 *Source: `DEVELOPMENT_PLAN.md`.*
 
@@ -147,4 +172,5 @@
 ## Quick links
 
 - Full roadmap: `DEVELOPMENT_PLAN.md`
+- Narrative (living doc): `PROJECT_JOURNEY.md`
 - Notes: `first_response.md` (if present)

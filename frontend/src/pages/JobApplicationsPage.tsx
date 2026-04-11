@@ -55,6 +55,8 @@ export function JobApplicationsPage() {
         <thead>
           <tr>
             <th>Candidate</th>
+            <th>Match</th>
+            <th>Resume</th>
             <th>Status</th>
             <th>Notes</th>
             <th></th>
@@ -63,7 +65,7 @@ export function JobApplicationsPage() {
         <tbody>
           {data.content.map((a: RecruiterApplication) => (
             <ApplicationRow
-              key={`${a.id}-${a.status}-${a.notes ?? ''}`}
+              key={`${a.id}-${a.status}-${a.notes ?? ''}-${a.matchScore ?? 'x'}-${a.resumeUploaded ? '1' : '0'}`}
               a={a}
               onSave={(status, notes) =>
                 patchMut.mutate({ applicationId: a.id, status, notes })
@@ -92,6 +94,31 @@ function ApplicationRow({
   return (
     <tr>
       <td>{a.candidateEmail}</td>
+      <td>
+        {a.matchScore != null ? (
+          <span title={a.matchReasons.join('\n')}>
+            <strong>{a.matchScore}</strong>
+            <span className="muted">/100</span>
+          </span>
+        ) : (
+          <span className="muted">—</span>
+        )}
+      </td>
+      <td className="small muted">
+        {a.resumeUploaded ? (
+          <>
+            {a.resumeFileName ?? 'file'}
+            {a.resumeUploadedAt ? (
+              <>
+                <br />
+                {new Date(a.resumeUploadedAt).toLocaleString()}
+              </>
+            ) : null}
+          </>
+        ) : (
+          '—'
+        )}
+      </td>
       <td>
         <select value={status} onChange={(e) => setStatus(e.target.value as ApplicationStatus)}>
           {STATUSES.map((s) => (

@@ -5,6 +5,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
+import java.nio.file.Path;
+
 /**
  * Pins datasource to in-memory H2 so tests do not pick up {@code SPRING_DATASOURCE_URL} from the
  * developer shell (e.g. after running against Docker Postgres).
@@ -21,5 +23,7 @@ public abstract class AbstractSpringBootIntegrationTest {
 		registry.add("spring.datasource.username", () -> "sa");
 		registry.add("spring.datasource.password", () -> "");
 		registry.add("spring.flyway.enabled", () -> "false");
+		registry.add("app.storage.local.root-directory",
+				() -> Path.of("target", "integration-resumes").toAbsolutePath().normalize().toString());
 	}
 }

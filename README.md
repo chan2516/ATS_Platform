@@ -1,6 +1,6 @@
 # ATS Platform (portfolio)
 
-Monorepo: **Spring Boot** API (`backend/`) + **Vite React** UI (`frontend/`). See `DEVELOPMENT_PLAN.md` for the full roadmap and `PROJECT_PROGRESS.md` for phase checklists.
+Monorepo: **Spring Boot** API (`backend/`) + **Vite React** UI (`frontend/`). See `DEVELOPMENT_PLAN.md` for the full roadmap, `PROJECT_PROGRESS.md` for phase checklists, and **`PROJECT_JOURNEY.md`** for a narrative “what we built so far” that you can extend over time.
 
 ## Prerequisites
 
@@ -57,6 +57,15 @@ Optional: copy `frontend/.env.example` to `frontend/.env` and set `VITE_API_BASE
 4. As the recruiter, open **Applications** for that job and update status / notes (`PATCH /api/recruiter/applications/{id}`).
 
 Public **GET `/api/jobs`** and **GET `/api/jobs/{id}`** do not require a JWT; applying and recruiter routes do.
+
+## Phase 3 — Resumes & match score
+
+1. Complete the Phase 2 apply flow so the candidate has an **application id** (visible in **My applications** or from `GET /api/me/applications`).
+2. **Upload** a PDF or DOCX: `POST /api/me/applications/{applicationId}/resume` with multipart field `file`, or use **Upload resume** on **My applications**.
+3. The API stores the file under `./data/resumes` by default (`RESUME_STORAGE_ROOT` / `app.storage.local.root-directory`), extracts text with **Apache Tika**, and stores a **0–100 match score** plus short reasons derived from the job title/description vs resume text.
+4. Recruiters see **Match** and **Resume** on the job’s **Applications** screen.
+
+Paginated JSON uses Spring Data **PagedModel** (`content` + `page.{number,size,totalElements,totalPages}`). The frontend normalizes both that shape and the older flat page JSON.
 
 ## Git workflow
 
