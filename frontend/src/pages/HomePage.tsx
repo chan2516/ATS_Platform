@@ -8,21 +8,37 @@ export function HomePage() {
     <section>
       <h1>AI-assisted interview & ATS</h1>
       <p>
-        Phase 1 is live: JWT auth, roles (candidate / recruiter / admin), core database schema, and{' '}
+        <strong>Phase 2</strong> adds job postings, applications, recruiter tooling, and public job search. API docs:{' '}
         <a href="http://localhost:8080/swagger-ui.html" target="_blank" rel="noreferrer">
-          OpenAPI docs
+          Swagger UI
         </a>{' '}
-        when the API runs locally.
+        (with the API running locally).
+      </p>
+      <p>
+        <Link to="/jobs">Browse open jobs</Link>
+        {user?.role === 'RECRUITER' ? (
+          <>
+            {' '}
+            · <Link to="/recruiter/jobs">Manage company jobs</Link>
+          </>
+        ) : null}
+        {user?.role === 'CANDIDATE' ? (
+          <>
+            {' '}
+            · <Link to="/my-applications">My applications</Link>
+          </>
+        ) : null}
       </p>
       {!loading && !user ? (
         <p>
-          <Link to="/register">Register</Link> or <Link to="/login">sign in</Link> to try the flow.
+          <Link to="/register">Register</Link> or <Link to="/login">sign in</Link> (candidate or recruiter) to use the
+          full flow.
         </p>
       ) : null}
       {user ? (
         <p>
-          Signed in as <strong>{user.email}</strong> ({user.role}). Open <Link to="/account">Account</Link> to see your
-          profile from <code>GET /api/me</code>.
+          Signed in as <strong>{user.email}</strong> ({user.role}). <Link to="/account">Account</Link> shows{' '}
+          <code>GET /api/me</code>.
         </p>
       ) : null}
     </section>

@@ -36,6 +36,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		if (context != null && !context.isEmpty() && path.startsWith(context)) {
 			path = path.substring(context.length());
 		}
+		if (path.equals("/api/jobs") && "GET".equalsIgnoreCase(request.getMethod())) {
+			return true;
+		}
+		if (path.matches("/api/jobs/\\d+") && "GET".equalsIgnoreCase(request.getMethod())) {
+			return true;
+		}
 		return path.startsWith("/api/auth/")
 				|| path.startsWith("/actuator/")
 				|| path.startsWith("/v3/api-docs")

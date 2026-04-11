@@ -22,10 +22,14 @@ Defaults: PostgreSQL **`localhost:5433`** → container `5432` (database `ats`, 
 
 ```bash
 cd backend
-./mvnw spring-boot-run
+./mvnw spring-boot:run
 ```
 
-On Windows use `mvnw.cmd spring-boot-run`. Health: [http://localhost:8080/actuator/health](http://localhost:8080/actuator/health)
+On Windows use `mvnw.cmd spring-boot:run`. Health: [http://localhost:8080/actuator/health](http://localhost:8080/actuator/health)
+
+Set `JWT_SECRET` (32+ bytes for HS256) in the environment for non-default signing; example PowerShell before starting:
+
+`$env:JWT_SECRET = "your-long-random-secret-at-least-32-chars"`
 
 ### 3. Frontend
 
@@ -44,6 +48,15 @@ Open [http://localhost:5173](http://localhost:5173). The **API health** page cal
 - **JWT:** Set a long random `JWT_SECRET` (at least 32 bytes for HS256) in the environment when not using the dev default — see `backend/.env.example`.
 
 Optional: copy `frontend/.env.example` to `frontend/.env` and set `VITE_API_BASE_URL` when not using the proxy (e.g. production build against a remote API).
+
+## Phase 2 — Jobs & applications (happy path)
+
+1. Start Postgres (Compose) and the API (`mvnw.cmd spring-boot:run` in `backend/`).
+2. Register a **recruiter** with a **company name**, then open **Recruiter →** in the UI and create a job (or use `POST /api/recruiter/jobs`).
+3. Register a **candidate**, open **Jobs**, open the posting, and **Apply** (or `POST /api/jobs/{id}/applications`).
+4. As the recruiter, open **Applications** for that job and update status / notes (`PATCH /api/recruiter/applications/{id}`).
+
+Public **GET `/api/jobs`** and **GET `/api/jobs/{id}`** do not require a JWT; applying and recruiter routes do.
 
 ## Git workflow
 

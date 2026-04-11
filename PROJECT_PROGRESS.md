@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-04-11
 
-**Current phase:** Phase 2 — Job postings & applications (next)
+**Current phase:** Phase 3 — Resume upload & ATS scoring (next)
 
 ---
 
@@ -57,14 +57,14 @@
 - [x] `GlobalExceptionHandler` + `ApiError`
 - [x] Logging pattern in `application.yml`
 - [x] Default JDBC URL matches Compose: `localhost:5433/ats`
-- [x] Tests use H2 in PostgreSQL mode (`@ActiveProfiles("test")`) — **`./mvnw test` passes** (Flyway disabled in test; schema from JPA)
+- [x] Tests use H2 in PostgreSQL mode (`@ActiveProfiles("test")`) — **`./mvnw test` passes** (Flyway disabled in test; schema from JPA; datasource pinned via `@DynamicPropertySource` so shell `SPRING_DATASOURCE_URL` does not break tests)
 
 ### Frontend skeleton
 
 - [x] Vite + React + TS — **`npm run build`** OK
 - [x] ESLint — `npm run lint`
 - [x] Prettier — `npm run format` (see `frontend/.prettierrc`)
-- [x] React Router: `/`, `/health`, `/login`, `/register`, `/account`
+- [x] React Router: `/`, `/health`, `/login`, `/register`, `/account`, `/jobs`, recruiter & candidate flows
 - [x] Vite proxy: `/actuator`, `/api` → `http://localhost:8080`
 
 ### CI (GitHub Actions)
@@ -110,11 +110,35 @@
 - [x] Secured routes require JWT; wrong role → **403**; unauthenticated → **401**
 - [x] Demo: Postman or UI login/register flow works locally against Postgres
 
-**Phase 1 status:** Complete. **Next:** Phase 2 (job CRUD, applications, dashboards).
+**Phase 1 status:** Complete.
 
 ---
 
-## Phase 2+ (checklist TBD)
+## Phase 2 — Job postings & applications
+
+**Goal:** Recruiter CRUD jobs; candidate browse/apply; application status + notes; paginated APIs; TanStack Query + forms on the UI.  
+**Reference:** `DEVELOPMENT_PLAN.md` § Phase 2.
+
+### Delivered
+
+- [x] Flyway `V2__application_notes.sql` — optional recruiter notes on `applications`
+- [x] Public read: `GET /api/jobs`, `GET /api/jobs/{id}` (open jobs only for detail); **no JWT required**
+- [x] Candidate: `POST /api/jobs/{jobId}/applications`, `GET /api/me/applications` (paged)
+- [x] Recruiter: `GET/POST/PUT/DELETE /api/recruiter/jobs`, `GET .../jobs/{id}/applications`, `PATCH /api/recruiter/applications/{id}`
+- [x] DTOs + validation; `Pageable` normalized (max page size 100); `NotFoundException` → 404
+- [x] Services: `JobPostingService`, `JobApplicationService`; JPA Specifications for public job search (`q`, `location`)
+- [x] Tests: `Phase2JobFlowIntegrationTest` (end-to-end recruiter → candidate → patch)
+- [x] Frontend: TanStack Query, React Hook Form + Zod for job form, role-gated routes (`RequireRole`), jobs list/detail, recruiter dashboard, applications table
+
+### Phase 2 — Exit criteria (from plan)
+
+- [x] Recruiter creates job → candidate applies → recruiter changes status (see README **Phase 2 — happy path**)
+
+**Phase 2 status:** Complete. **Next:** Phase 3 (resume upload & scoring).
+
+---
+
+## Phase 3+ (checklist TBD)
 
 *Source: `DEVELOPMENT_PLAN.md`.*
 

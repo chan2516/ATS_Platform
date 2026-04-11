@@ -33,6 +33,11 @@ public class GlobalExceptionHandler {
 		return build(HttpStatus.CONFLICT, ex.getMessage(), request);
 	}
 
+	@ExceptionHandler(NotFoundException.class)
+	public ResponseEntity<ApiError> handleNotFound(NotFoundException ex, HttpServletRequest request) {
+		return build(HttpStatus.NOT_FOUND, ex.getMessage(), request);
+	}
+
 	@ExceptionHandler(ResponseStatusException.class)
 	public ResponseEntity<ApiError> handleResponseStatus(ResponseStatusException ex, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.valueOf(ex.getStatusCode().value());

@@ -66,4 +66,52 @@ public class JobPosting extends BaseEntity {
 	public JobPostingStatus getStatus() {
 		return status;
 	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public void setEmploymentType(EmploymentType employmentType) {
+		this.employmentType = employmentType;
+	}
+
+	public void setSalaryMin(Integer salaryMin) {
+		this.salaryMin = salaryMin;
+	}
+
+	public void setSalaryMax(Integer salaryMax) {
+		this.salaryMax = salaryMax;
+	}
+
+	public void setStatus(JobPostingStatus status) {
+		this.status = status;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public EmploymentType getEmploymentType() {
+		return employmentType;
+	}
+
+	public Integer getSalaryMin() {
+		return salaryMin;
+	}
+
+	public Integer getSalaryMax() {
+		return salaryMax;
+	}
 }

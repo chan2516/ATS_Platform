@@ -29,6 +29,9 @@ public class JobApplication extends BaseEntity {
 	@Column(nullable = false, length = 32)
 	private ApplicationStatus status = ApplicationStatus.SUBMITTED;
 
+	@Column(columnDefinition = "TEXT")
+	private String notes;
+
 	protected JobApplication() {
 	}
 
@@ -48,5 +51,17 @@ public class JobApplication extends BaseEntity {
 
 	public ApplicationStatus getStatus() {
 		return status;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setStatus(ApplicationStatus status) {
+		this.status = status;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 }
