@@ -22,7 +22,8 @@ jobs:
           java-version: "17"
           cache: maven
       - name: Test
-        run: ./mvnw -B test
+        # mvnw must be executable on Linux (100755 in git); chmod is a safety net for Windows checkouts.
+        run: chmod +x mvnw && ./mvnw -B test
 
   frontend:
     runs-on: ubuntu-latest
