@@ -35,7 +35,13 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173). The **API health** page calls the backend via the Vite dev proxy (`/actuator` → `http://localhost:8080`).
+Open [http://localhost:5173](http://localhost:5173). The **API health** page calls the backend via the Vite dev proxy (`/actuator` and `/api` → `http://localhost:8080`).
+
+### Phase 1 — Auth & API docs
+
+- **Swagger UI:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) (API running).
+- **Auth:** Register and sign in from the UI (`/register`, `/login`), or call `POST /api/auth/register` and `POST /api/auth/login`. Responses include a **Bearer JWT** (`accessToken`). Use `Authorization: Bearer <token>` for `GET /api/me` and other secured routes.
+- **JWT:** Set a long random `JWT_SECRET` (at least 32 bytes for HS256) in the environment when not using the dev default — see `backend/.env.example`.
 
 Optional: copy `frontend/.env.example` to `frontend/.env` and set `VITE_API_BASE_URL` when not using the proxy (e.g. production build against a remote API).
 

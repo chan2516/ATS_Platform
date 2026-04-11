@@ -2,9 +2,9 @@
 
 **Single source of truth for what is done.** Mark items with `[x]` when complete, leave `[ ]` when not. Update the **Last updated** line whenever you change this file.
 
-**Last updated:** 2026-04-09
+**Last updated:** 2026-04-11
 
-**Current phase:** Phase 0 — Foundations (**complete locally**; push to GitHub to verify CI)
+**Current phase:** Phase 2 — Job postings & applications (next)
 
 ---
 
@@ -25,7 +25,7 @@
 
 ### Prerequisites (your machine & accounts)
 
-- [x] JDK 17+ installed — **repo uses `java.version` 17 in `backend/pom.xml`** (your machine: Java 17 verified)
+- [x] JDK 17+ installed — **repo uses `java.version` 17 in `backend/pom.xml`**
 - [x] Node.js installed (`node -v`) — v24+ verified
 - [x] Git installed — verified; **local `git init` done** in project root
 - [ ] **Remote:** GitHub repository created and this project pushed — *you create the repo and `git remote add` + push*
@@ -57,14 +57,14 @@
 - [x] `GlobalExceptionHandler` + `ApiError`
 - [x] Logging pattern in `application.yml`
 - [x] Default JDBC URL matches Compose: `localhost:5433/ats`
-- [x] Tests use H2 (`@ActiveProfiles("test")`) — **`./mvnw test` passes**
+- [x] Tests use H2 in PostgreSQL mode (`@ActiveProfiles("test")`) — **`./mvnw test` passes** (Flyway disabled in test; schema from JPA)
 
 ### Frontend skeleton
 
 - [x] Vite + React + TS — **`npm run build`** OK
 - [x] ESLint — `npm run lint`
 - [x] Prettier — `npm run format` (see `frontend/.prettierrc`)
-- [x] React Router: `/`, `/health`
+- [x] React Router: `/`, `/health`, `/login`, `/register`, `/account`
 - [x] Vite proxy: `/actuator`, `/api` → `http://localhost:8080`
 
 ### CI (GitHub Actions)
@@ -84,20 +84,33 @@
 - [x] Frontend `npm run build` succeeds
 - [ ] CI passes on GitHub — *pending your push*
 
-**Phase 0 status:** ☑ **Done for local development.** Remaining: **create GitHub repo, push, confirm CI green**, then start Phase 1.
-
-### Session log
-
-| Date       | Note |
-|-----------|------|
-| 2026-04-09 | Phase 0 scaffold restored after undo. |
-| 2026-04-09 | Java **17** in `pom.xml` + CI; Compose ports **5433**/ **6380**; Prettier; `git init`; `mvnw test` + Docker verified. |
+**Phase 0 status:** Done for local development; remote CI still pending.
 
 ---
 
-## Phase 1 — Identity & core domain (checklist TBD)
+## Phase 1 — Identity & core domain
 
-*Copy tasks from `DEVELOPMENT_PLAN.md` § Phase 1 when you start Phase 1.*
+**Goal:** Register/login with JWT; roles; Flyway schema for `User`, `Company`, `JobPosting`, `JobApplication` stubs; `GET /api/me`; OpenAPI; tests.  
+**Reference:** `DEVELOPMENT_PLAN.md` § Phase 1.
+
+### Delivered
+
+- [x] Spring Security (stateless), BCrypt passwords, JWT access token (configurable expiry; **MVP: no refresh token** — document in `application.yml` / README)
+- [x] Roles: `CANDIDATE`, `RECRUITER`, `ADMIN` (self-registration only CANDIDATE/RECRUITER)
+- [x] Flyway `V1__baseline.sql` on PostgreSQL; JPA entities + auditing
+- [x] API: `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/me`
+- [x] OpenAPI 3 + Swagger UI (`/swagger-ui.html`), Bearer scheme
+- [x] CORS via `CORS_ORIGINS` / `app.cors.allowed-origins`
+- [x] Integration-style tests (`AuthIntegrationTest`) + `BackendApplicationTests`
+- [x] Frontend: sign in, register, account summary from `/api/me`
+- [x] Probe endpoints: `GET /api/phase1/recruiter-only`, `GET /api/phase1/candidate-only` (403/200 for RBAC checks)
+
+### Phase 1 — Exit criteria (from plan)
+
+- [x] Secured routes require JWT; wrong role → **403**; unauthenticated → **401**
+- [x] Demo: Postman or UI login/register flow works locally against Postgres
+
+**Phase 1 status:** Complete. **Next:** Phase 2 (job CRUD, applications, dashboards).
 
 ---
 
