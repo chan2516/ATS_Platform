@@ -1,6 +1,9 @@
 # ATS Platform (portfolio)
 
-Monorepo: **Spring Boot** API (`backend/`) + **Vite React** UI (`frontend/`). See `DEVELOPMENT_PLAN.md` for the full roadmap, `PROJECT_PROGRESS.md` for phase checklists, and **`PROJECT_JOURNEY.md`** for a narrative “what we built so far” that you can extend over time.
+Monorepo: **Spring Boot** API (`backend/`) + **Vite React** UI (`frontend/`).
+
+- **`DEVELOPMENT_WORKFLOW.md`** — **start here:** deploy MVP first, then iterate with CI/CD-style habits; then Phase 4+ backlog.
+- `DEVELOPMENT_PLAN.md` — full roadmap · `PROJECT_PROGRESS.md` — checklists · `PROJECT_JOURNEY.md` — narrative history · `DEPLOYMENT.md` — hosting and env vars.
 
 ## Prerequisites
 
@@ -66,6 +69,10 @@ Public **GET `/api/jobs`** and **GET `/api/jobs/{id}`** do not require a JWT; ap
 4. Recruiters see **Match** and **Resume** on the job’s **Applications** screen.
 
 Paginated JSON uses Spring Data **PagedModel** (`content` + `page.{number,size,totalElements,totalPages}`). The frontend normalizes both that shape and the older flat page JSON.
+
+## Deployment (production demo)
+
+See **`DEPLOYMENT.md`** for what to skip vs ship first, how **GitHub Student Pack** perks map to hosting (Vercel, DigitalOcean, Azure, etc.), env vars (`JWT_SECRET`, `CORS_ORIGINS`, `VITE_API_BASE_URL`), and caveats (resume storage on ephemeral disks).
 
 ## Git workflow
 

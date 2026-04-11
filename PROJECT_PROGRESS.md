@@ -4,7 +4,12 @@
 
 **Last updated:** 2026-04-11
 
-**Current phase:** Phase 4 — Analytics & candidate experience polish (next)
+**Current focus (priority order):**  
+1) **Production deploy (MVP)** — follow **`DEVELOPMENT_WORKFLOW.md`** + **`DEPLOYMENT.md`** until smoke tests pass in prod.  
+2) **CI/CD-style iteration** — branch → PR → CI green → merge → deploy (auto-deploy from `main` on Vercel/Render is enough).  
+3) **Product backlog** — Phase 4+ after the public URL works (see `DEVELOPMENT_PLAN.md`).
+
+**Roadmap phase (product):** Phase 4 — analytics & candidate polish — **after** MVP deploy unless you explicitly parallelize.
 
 ---
 
@@ -28,7 +33,7 @@
 - [x] JDK 17+ installed — **repo uses `java.version` 17 in `backend/pom.xml`**
 - [x] Node.js installed (`node -v`) — v24+ verified
 - [x] Git installed — verified; **local `git init` done** in project root
-- [ ] **Remote:** GitHub repository created and this project pushed — *you create the repo and `git remote add` + push*
+- [x] **Remote:** GitHub repository — **pushed** (`origin/main`; update this note if the canonical remote changes)
 - [ ] Free-tier accounts for deploy (Neon, Render, Vercel, etc.) — *Phase 8; optional now*
 - [x] Product / repo name — **working title: ATS Platform**
 
@@ -70,7 +75,7 @@
 ### CI (GitHub Actions)
 
 - [x] `.github/workflows/ci.yml` — Java **17**, Node **22**, backend test + frontend ci/build
-- [ ] **Workflow green on GitHub** — *after you push and enable Actions*
+- [ ] **Workflow green on GitHub** — *confirm in **Actions** tab on latest `main` (re-run if needed)*
 
 ### Git workflow
 
@@ -171,6 +176,8 @@
 
 ## Quick links
 
+- **What to do next (deploy first, then features):** `DEVELOPMENT_WORKFLOW.md`
 - Full roadmap: `DEVELOPMENT_PLAN.md`
 - Narrative (living doc): `PROJECT_JOURNEY.md`
+- Deploy MVP (hosts, env): `DEPLOYMENT.md`
 - Notes: `first_response.md` (if present)

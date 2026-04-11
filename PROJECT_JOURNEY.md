@@ -61,10 +61,13 @@ A multi-role applicant tracking system where recruiters manage jobs and pipeline
 
 ## Next milestones (from `DEVELOPMENT_PLAN.md`)
 
-1. **Phase 4** — Recruiter analytics, richer filters, candidate timeline polish.
-2. **Phase 5** — Interviews and notifications.
-3. **Phase 6** — Optional AI-assisted question generation (feature-flagged, cached).
-4. **Phase 7–8** — Hardening, observability, deployment story and demo URLs.
+**Operating sequence:** see **`DEVELOPMENT_WORKFLOW.md`** — deploy MVP first, then feature phases with the same CI → merge → deploy loop.
+
+1. **Production MVP** — **`DEPLOYMENT.md`** (hosts, env, Student Pack). Do this **before** treating Phase 4 as mandatory.
+2. **Phase 4** — Recruiter analytics, richer filters, candidate timeline polish.
+3. **Phase 5** — Interviews and notifications.
+4. **Phase 6** — Optional AI-assisted question generation (feature-flagged, cached).
+5. **Phase 7** — Hardening, observability.
 
 ---
 
