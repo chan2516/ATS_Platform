@@ -21,8 +21,8 @@ jobs:
           distribution: temurin
           java-version: "17"
           cache: maven
+      # mvnw must be executable on Linux (Windows checkouts may omit +x in git).
       - name: Test
-        # mvnw must be executable on Linux (100755 in git); chmod is a safety net for Windows checkouts.
         run: chmod +x mvnw && ./mvnw -B test
 
   frontend:
