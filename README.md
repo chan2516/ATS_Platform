@@ -3,6 +3,7 @@
 Monorepo: **Spring Boot** API (`backend/`) + **Vite React** UI (`frontend/`).
 
 - **`DEVELOPMENT_WORKFLOW.md`** — **start here:** deploy MVP first, then iterate with CI/CD-style habits; then Phase 4+ backlog.
+- **`docs/STUDENT_PACK_DEPLOY_AND_PIPELINE.md`** — Student Pack–friendly hosts, how frontend + API + DB fit together, env vars, and **pipeline** (CI today + auto-deploy on `main`).
 - `DEVELOPMENT_PLAN.md` — full roadmap · `PROJECT_PROGRESS.md` — checklists · `PROJECT_JOURNEY.md` — narrative history · `DEPLOYMENT.md` — hosting and env vars.
 
 ## Prerequisites

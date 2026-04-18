@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, NavLink, Route, Routes } from 'react-router-dom'
 import { useAuth } from './auth/useAuth'
 import { RequireRole } from './components/RequireRole'
 import { AccountPage } from './pages/AccountPage'
@@ -17,6 +17,8 @@ import './App.css'
 export default function App() {
   const { user, loading } = useAuth()
 
+  const navLink = ({ isActive }: { isActive: boolean }) => (isActive ? 'nav-link active' : 'nav-link')
+
   return (
     <div className="app">
       <header className="app-header">
@@ -24,19 +26,35 @@ export default function App() {
           ATS Platform
         </Link>
         <nav>
-          <Link to="/">Home</Link>
-          <Link to="/jobs">Jobs</Link>
-          <Link to="/health">API health</Link>
+          <NavLink to="/" className={navLink} end>
+            Home
+          </NavLink>
+          <NavLink to="/jobs" className={navLink}>
+            Jobs
+          </NavLink>
+          <NavLink to="/health" className={navLink}>
+            API health
+          </NavLink>
           {loading ? (
             <span className="muted">…</span>
           ) : user ? (
             <>
               {user.role === 'CANDIDATE' ? (
-                <Link to="/my-applications">My applications</Link>
+                <NavLink to="/my-applications" className={navLink}>
+                  My applications
+                </NavLink>
               ) : null}
-              {user.role === 'RECRUITER' ? <Link to="/recruiter/jobs">Recruiter</Link> : null}
-              <Link to="/account">Account</Link>
-              <span className="nav-user">{user.email}</span>
+              {user.role === 'RECRUITER' ? (
+                <NavLink to="/recruiter/jobs" className={navLink}>
+                  Recruiter
+                </NavLink>
+              ) : null}
+              <NavLink to="/account" className={navLink}>
+                Account
+              </NavLink>
+              <span className="nav-user" title={user.email}>
+                {user.email}
+              </span>
             </>
           ) : (
             <>
@@ -97,6 +115,9 @@ export default function App() {
           />
         </Routes>
       </main>
+      <footer className="app-footer">
+        ATS Platform — jobs, applications & resume matching. API: Spring Boot · UI: React.
+      </footer>
     </div>
   )
 }

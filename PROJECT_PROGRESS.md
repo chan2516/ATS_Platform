@@ -177,6 +177,7 @@
 ## Quick links
 
 - **What to do next (deploy first, then features):** `DEVELOPMENT_WORKFLOW.md`
+- **Student Pack deploy + pipeline (frontend/API/DB):** `docs/STUDENT_PACK_DEPLOY_AND_PIPELINE.md`
 - Full roadmap: `DEVELOPMENT_PLAN.md`
 - Narrative (living doc): `PROJECT_JOURNEY.md`
 - Deploy MVP (hosts, env): `DEPLOYMENT.md`
