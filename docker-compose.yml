@@ -19,3 +19,32 @@ services:
     image: redis:7-alpine
     ports:
       - "6380:6379"
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ats
+      SPRING_DATASOURCE_USERNAME: ats
+      SPRING_DATASOURCE_PASSWORD: ats
+      SERVER_PORT: 8080
+      CORS_ORIGINS: http://localhost:5173
+      RESUME_STORAGE_ROOT: /app/data/resumes
+      JWT_SECRET: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+    ports:
+      - "18080:8080"
+    volumes:
+      - ./backend/data/resumes:/app/data/resumes
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: http://localhost:18080
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend

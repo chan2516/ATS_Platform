@@ -2,6 +2,27 @@
 
 Monorepo: **Spring Boot** API (`backend/`) + **Vite React** UI (`frontend/`).
 
+## Docker local stack
+
+Run the whole app in Docker with one command:
+
+```bash
+docker compose up -d --build
+```
+
+Access points:
+
+- Frontend UI: [http://localhost:5173](http://localhost:5173)
+- Backend health: [http://localhost:18080/actuator/health](http://localhost:18080/actuator/health)
+- Swagger UI: [http://localhost:18080/swagger-ui.html](http://localhost:18080/swagger-ui.html)
+
+Rebuild only one service if needed:
+
+```powershell
+.\rebuild.ps1 -Part backend
+.\rebuild.ps1 -Part frontend
+```
+
 - **`DEVELOPMENT_WORKFLOW.md`** — **start here:** deploy MVP first, then iterate with CI/CD-style habits; then Phase 4+ backlog.
 - **`docs/FULL_STACK_DEPLOY_GUIDE_FOR_BEGINNERS.md`** — **in-depth:** why UI and API are separate, what to deploy first, free tiers, CORS order, and pipeline for learning full-stack.
 - **`docs/STUDENT_PACK_DEPLOY_AND_PIPELINE.md`** — shorter checklist + Student Pack notes, env vars, auto-deploy on `main`.
