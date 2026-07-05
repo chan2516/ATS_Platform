@@ -2,6 +2,8 @@
 
 This guide ties together **free / student-tier hosting**, how **frontend + backend** talk in production, and a **repeatable workflow** (CI + deploy) for future features.
 
+**New to deployment?** Read **`FULL_STACK_DEPLOY_GUIDE_FOR_BEGINNERS.md`** first — it explains the mental model, deploy order, and trade-offs in depth; this file stays a compact checklist.
+
 ---
 
 ## 1. How the deployed app is wired
